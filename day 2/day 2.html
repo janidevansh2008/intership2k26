@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Responsive Modern Landing Page</title>
+    <style>
+        /* ==========================================
+           1. RESET & BASE STYLES (Mobile-First Approach)
+           ========================================== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        body {
+            background-color: #fdfdfd;
+        }
+
+        section {
+            padding: 80px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        h2 {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 40px;
+            position: relative;
+        }
+
+        h2::after {
+            content: '';
+            display: block;
+            width: 60px;
+            height: 4px;
+            background-color: #3b82f6;
+            margin: 10px auto 0 auto;
+            border-radius: 2px;
+        }
+
+        img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        /* Common Button Styling */
+        .btn {
+            display: inline-block;
+            background-color: #3b82f6;
+            color: #fff;
+            padding: 12px 30px;
+            text-decoration: none;
+            border-radius: 25px;
+            font-weight: 600;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+
+        .btn:hover {
+            background-color: #1d4ed8;
+            transform: translateY(-2px);
+        }
+
+        /* ==========================================
+           2. HEADER & NAVIGATION (Flexbox)
+           ========================================== */
+        .main-header {
+            background-color: #ffffff;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            padding: 15px 20px;
+            display: flex;
+            flex-direction: column; /* Stacked on mobile */
+            align-items: center;
+            gap: 15px;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #1e3a8a;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 20px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #4b5563;
+            font-weight: 500;
+            padding: 5px 10px;
+            transition: color 0.3s ease;
+        }
+
+        /* Hover Effect on Nav Menu Items */
+        .nav-links a:hover {
+            color: #3b82f6;
+        }
+
+        /* ==========================================
+           3. HERO SECTION (Flexbox)
+           ========================================== */
+        .hero-section {
+            max-width: 100%;
+            background: linear-gradient(rgba(30, 58, 138, 0.85), rgba(30, 58, 138, 0.85)), 
+                        url('https://picsum.photos/1920/1080?random=10') center/cover no-repeat;
+            color: #ffffff;
+            height: 70vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+
+        .hero-content h1 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+
+        .hero-content p {
+            font-size: 1.1rem;
+            margin-bottom: 30px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* ==========================================
+           4. ABOUT SECTION (Flexbox stacking)
+           ========================================== */
+        .about-container {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+        }
+
+        .about-text, .about-sidebar {
+            background-color: #f3f4f6;
+            padding: 30px;
+            border-radius: 8px;
+        }
+
+        .about-sidebar ul {
+            list-style: none;
+            margin-top: 15px;
+        }
+
+        .about-sidebar li {
+            margin-bottom: 10px;
+            font-weight: 500;
+        }
+
+        /* ==========================================
+           5. SERVICES SECTION (Flexbox Layout)
+           ========================================== */
+        .services-container {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+        }
+
+        .service-card {
+            background-color: #ffffff;
+            padding: 40px 30px;
+            border-radius: 8px;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            border: 1px solid #e5e7eb;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .service-icon {
+            font-size: 3rem;
+            margin-bottom: 20px;
+        }
+
+        .service-card h3 {
+            margin-bottom: 15px;
+            color: #1e3a8a;
+        }
+
+        /* Service Card Hover Effect */
+        .service-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        /* ==========================================
+           6. GALLERY SECTION (Grid Layout)
+           ========================================== */
+        .gallery-grid {
+            display: grid;
+            /* Default: 1 column on very narrow mobile screens */
+            grid-template-columns: repeat(1, 1fr); 
+            gap: 20px;
+        }
+
+        .gallery-item {
+            border-radius: 8px;
+            overflow: hidden;
+            height: 250px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Gallery Item Zoom Hover Effect */
+        .gallery-item img {
+            transition: transform 0.5s ease;
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.1);
+        }
+
+        /* ==========================================
+           7. CONTACT SECTION
+           ========================================== */
+        .contact-section {
+            text-align: center;
+        }
+
+        .contact-form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            max-width: 600px;
+            margin: 30px auto 0 auto;
+        }
+
+        .contact-form input, 
+        .contact-form textarea {
+            width: 100%;
+            padding: 15px;
+            border: 1px solid #cbd5e1;
+            border-radius: 6px;
+            font-size: 1rem;
+            outline: none;
+            transition: border-color 0.3s ease;
+        }
+
+        .contact-form input:focus, 
+        .contact-form textarea:focus {
+            border-color: #3b82f6;
+        }
+
+        /* ==========================================
+           8. FOOTER
+           ========================================== */
+        .main-footer {
+            background-color: #111827;
+            color: #9ca3af;
+            text-align: center;
+            padding: 30px 20px;
+            font-size: 0.9rem;
+        }
+
+        /* ==========================================
+           9. MEDIA QUERIES (Desktop Layout Enhancements)
+           ========================================== */
+
+        /* Tablet Viewports and Above */
+        @media (min-width: 640px) {
+            .gallery-grid {
+                grid-template-columns: repeat(2, 1fr); /* 2 columns for tablets */
+            }
+        }
+
+        /* Desktop Viewports and Above */
+        @media (min-width: 1024px) {
+            
+            /* Header layout changes to a row layout */
+            .main-header {
+                flex-direction: row;
+                justify-content: space-between;
+                padding: 20px 80px;
+            }
+
+            .hero-content h1 {
+                font-size: 3.5rem;
+            }
+
+            /* About Section splits into columns */
+            .about-container {
+                flex-direction: row;
+            }
+            
+            .about-text {
+                flex: 2;
+            }
+            
+            .about-sidebar {
+                flex: 1;
+            }
+
+            /* Services Section cards split into rows */
+            .services-container {
+                flex-direction: row;
+            }
+
+            .service-card {
+                flex: 1;
+            }
+
+            /* Gallery scales to 3 columns on desktop */
+            .gallery-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header class="main-header">
+        <div class="logo">Flex&Grid</div>
+        <nav class="navbar">
+            <ul class="nav-links">
+                <li><a href="#hero">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#services">Services</a></li>
+                <li><a href="#gallery">Gallery</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section id="hero" class="hero-section">
+            <div class="hero-content">
+                <h1>Build Modern Layouts Effortlessly</h1>
+                <p>Mastering Flexbox, Grid, and Responsive Design to create stunning web experiences.</p>
+                <a href="#services" class="btn">Explore Services</a>
+            </div>
+        </section>
+
+        <section id="about" class="about-section">
+            <h2>About Us</h2>
+            <div class="about-container">
+                <article class="about-text">
+                    <h3>Our Philosophy</h3>
+                    <p>We believe in clean code, semantic structures, and responsive designs that adapt seamlessly to any screen size. By combining CSS Flexbox and Grid, we build layouts that are both highly functional and visually striking.</p>
+                </article>
+                <aside class="about-sidebar">
+                    <h3>Why Choose Us?</h3>
+                    <ul>
+                        <li>⚡ Mobile-First Approach</li>
+                        <li>🎨 Modern UI/UX Transitions</li>
+                        <li>📐 Pixel-Perfect CSS Layouts</li>
+                    </ul>
+                </aside>
+            </div>
+        </section>
+
+        <section id="services" class="services-section">
+            <h2>Our Services</h2>
+            <div class="services-container">
+                <article class="service-card">
+                    <div class="service-icon">🌐</div>
+                    <h3>Web Design</h3>
+                    <p>Crafting gorgeous, user-friendly interfaces tailored specifically to your brand identity.</p>
+                </article>
+                <article class="service-card">
+                    <div class="service-icon">📱</div>
+                    <h3>Responsive Dev</h3>
+                    <p>Ensuring your website looks flawless on desktops, tablets, and mobile smartphones alike.</p>
+                </article>
+                <article class="service-card">
+                    <div class="service-icon">🚀</div>
+                    <h3>SEO Optimization</h3>
+                    <p>Structuring clean, semantic HTML to boost your search engine rankings and visibility.</p>
+                </article>
+            </div>
+        </section>
+
+        <section id="gallery" class="gallery-section">
+            <h2>Our Gallery</h2>
+            <div class="gallery-grid">
+                <div class="gallery-item"><img src="https://picsum.photos/600/400?random=1" alt="Gallery Image 1"></div>
+                <div class="gallery-item"><img src="https://picsum.photos/600/400?random=2" alt="Gallery Image 2"></div>
+                <div class="gallery-item"><img src="https://picsum.photos/600/400?random=3" alt="Gallery Image 3"></div>
+                <div class="gallery-item"><img src="https://picsum.photos/600/400?random=4" alt="Gallery Image 4"></div>
+                <div class="gallery-item"><img src="https://picsum.photos/600/400?random=5" alt="Gallery Image 5"></div>
+                <div class="gallery-item"><img src="https://picsum.photos/600/400?random=6" alt="Gallery Image 6"></div>
+            </div>
+        </section>
+
+        <section id="contact" class="contact-section">
+            <h2>Get In Touch</h2>
+            <p>Have a project in mind? Let's build something incredible together.</p>
+            <form class="contact-form" onsubmit="event.preventDefault();">
+                <input type="text" placeholder="Your Name" required>
+                <input type="email" placeholder="Your Email" required>
+                <textarea rows="5" placeholder="Your Message" required></textarea>
+                <button type="submit" class="btn">Send Message</button>
+            </form>
+        </section>
+    </main>
+
+    <footer class="main-footer">
+        <p>&copy; 2026 Flex&Grid Landing Page. All rights reserved.</p>
+    </footer>
+
+</body>
+</html>
